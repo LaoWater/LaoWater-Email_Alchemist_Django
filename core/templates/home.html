@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | AI Username & Email Generator</title>
+    <!-- Bootstrap CSS for responsive styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Google Font for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #2c2c2c;
+            color: #d1d1d1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: #333;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            max-width: 850px;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            color: #f0f0f0;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 1.9em;
+            color: #b0b0b0;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #d1d1d1;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+
+        input[type="number"],
+        input[type="checkbox"] {
+            margin-top: 10px;
+        }
+
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 15px;
+            padding: 12px 15px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+        }
+
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-color: #777;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: #555;
+            border-color: #555;
+            font-size: 1.3em;
+            padding: 12px 40px;
+            border-radius: 30px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .btn-primary:hover {
+            background-color: #777;
+            box-shadow: 0 8px 20px rgba(55, 55, 55, 0.4);
+        }
+
+        .btn-primary:focus {
+            outline: none;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #b0b0b0;
+        }
+
+        /* Loading Screen Styles */
+        #loading-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            text-align: center;
+            padding-top: 20%;
+            color: #fff;
+            font-size: 1.8em;
+        }
+
+        #loading-screen p {
+            margin: 0;
+            padding: 0;
+        }
+
+        #patience-message {
+            font-size: 0.9em;
+            color: #f39c12;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI-Driven Username & Email Generator</h1>
+
+        <p>
+            Welcome to our AI-powered system designed to generate, score, and validate usernames and email patterns. Using cutting-edge neural networks, our tool provides highly realistic and plausible email-like usernames, analyzed and validated through web scraping.
+        </p>
+
+        <h2>Project Workflow</h2>
+
+        <p><strong>Step 1:</strong> Generate and clean datasets with AI-driven models, categorizing them for email generation.</p>
+        <p><strong>Step 2:</strong> Process structured datasets into meaningful patterns for AI scoring and validation.</p>
+        <p><strong>Step 3:</strong> Generate and validate patterns through web scraping to ensure real-world plausibility.</p>
+        <p><strong>Step 4:</strong> Users can customize the data generation or use existing data to produce high-quality usernames.</p>
+
+        <h2>Get Started</h2>
+
+        <form id="processing-form" method="post" action="/process/">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="raw_usernames">Number of Raw Generated Usernames:</label>
+                <input type="number" class="form-control" id="raw_usernames" name="no_of_raw_generated_usernames" value="50" min="1" required>
+            </div>
+            <div class="form-group">
+                <label for="upload_data">Upload Your Own Data:</label>
+                <input type="checkbox" id="upload_data" name="upload_your_own_data">
+            </div>
+            <div class="form-group">
+                <label for="overwrite_data">Overwrite Existing Data (if uploading your own):</label>
+                <input type="checkbox" id="overwrite_data" name="overwrite_existing_data">
+            </div>
+            <div class="form-group">
+                <label for="regenerate_data">Regenerate Original Datasets:</label>
+                <input type="checkbox" id="regenerate_data" name="regenerate_original_datasets">
+            </div>
+            <div class="form-group">
+                <label for="remove_records">Remove Records after being parsed and filtered towards Main Production Table:</label>
+                <input type="checkbox" id="remove_records" name="remove_record_after">
+            </div>
+            <div class="form-group">
+                <label for="top_records">Limit Top Production Records:</label>
+                <input type="number" class="form-control" id="top_records" name="fetch_top_production_records" value="10" min="1" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Start Processing</button>
+        </form>
+
+        <footer>
+            &copy; {{ current_year }} AI Username & Email Generator. All rights reserved.
+        </footer>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <p>Generating Usernames...</p>
+        <p id="patience-message">Patience, my friend, we're processing many complex steps...</p>
+        <!-- Fun facts will be shown here -->
+        <p id="fun-fact-1" style="display:none; margin-top: 20px; font-size: 0.85em;"></p>
+        <p id="fun-fact-2" style="display:none; margin-top: 20px; font-size: 0.85em;"></p>
+        <p id="fun-fact-3" style="display:none; margin-top: 20px; font-size: 0.85em;"></p>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <!-- Custom JS to handle loading screen -->
+    <script>
+        document.getElementById('processing-form').addEventListener('submit', function () {
+            // Show the loading screen when the form is submitted
+            document.getElementById('loading-screen').style.display = 'block';
+
+            // Display "Patience, my friend" message after 10 seconds
+            setTimeout(function () {
+                document.getElementById('patience-message').style.display = 'block';
+            }, 10000);
+
+            // List of fun facts about emails
+            const funFacts = [
+                "Did you know that over 300 billion emails are sent and received every day globally?",
+                "Did you know that the first email was sent in 1971 by Ray Tomlinson to himself?",
+                "Did you know that the most popular email subject line of all time is 'Free'?",
+                "Did you know that the first spam email was sent in 1978, promoting a product?",
+                "Did you know that more than 90% of all emails sent worldwide are spam?",
+                "Did you know that office workers receive an average of 121 emails per day?",
+                "Did you know that Gmail, the most popular email service, was launched in 2004?",
+                "Did you know that the @ symbol in email addresses was chosen because it's rarely used?",
+                "Did you know that over 60% of emails are opened on mobile devices?",
+                "Did you know that email is 40 times more effective at acquiring customers than social media?"
+            ];
+
+            // Shuffle the fun facts array
+            const shuffledFacts = funFacts.sort(() => 0.5 - Math.random());
+
+            // Show the first fun fact after 15 seconds
+            setTimeout(function () {
+                document.getElementById('fun-fact-1').style.display = 'block';
+                document.getElementById('fun-fact-1').innerHTML = shuffledFacts[0];
+            }, 15000);
+
+            // Show the second fun fact after 25 seconds
+            setTimeout(function () {
+                document.getElementById('fun-fact-2').style.display = 'block';
+                document.getElementById('fun-fact-2').innerHTML = shuffledFacts[1];
+            }, 25000);
+
+            // Show the third fun fact after 35 seconds
+            setTimeout(function () {
+                document.getElementById('fun-fact-3').style.display = 'block';
+                document.getElementById('fun-fact-3').innerHTML = shuffledFacts[2];
+            }, 35000);
+
+            // Let the form submit normally and the loading screen will stay
+            // until the server processes the request and the next page loads
+        });
+    </script>
+</body>
+</html>
+

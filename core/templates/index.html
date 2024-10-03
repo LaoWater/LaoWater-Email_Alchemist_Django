@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome | AI Username & Email Generator</title>
+    <!-- Bootstrap CSS for responsive design -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Google Font for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(to bottom right, #8e44ad, #3498db);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #f39c12;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #ecf0f1;
+            margin-bottom: 40px;
+        }
+
+        .btn-primary {
+            background-color: #f39c12;
+            border-color: #f39c12;
+            font-size: 1.3em;
+            padding: 15px 40px;
+            border-radius: 30px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #e67e22;
+            box-shadow: 0 6px 15px rgba(243, 156, 18, 0.4);
+        }
+
+        .btn-primary:focus {
+            outline: none;
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #bdc3c7;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            p {
+                font-size: 1.1em;
+            }
+
+            .btn-primary {
+                font-size: 1.1em;
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI-Driven Username and Email Generator</h1>
+        <p>
+            Welcome to an advanced system designed to generate, score, and validate usernames and email patterns. Our AI techniques, neural networks, and external tools will help you create realistic and authentic usernames, with applications in user validation, educational research, and secure system implementations.
+        </p>
+        <a href="{% url 'home' %}" class="btn btn-primary">Get Started</a>
+        <footer>
+            &copy; {{ current_year }} AI Username & Email Generator. All rights reserved.
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
